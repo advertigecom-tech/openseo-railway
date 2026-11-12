@@ -124,6 +124,22 @@ fi
 export OPENSEO_MCP_TOKEN
 
 # --- app ------------------------------------------------------------------
+# Prepare API secrets before starting OpenSEO
+SECRET_FILE="/app/dist/server/.dev.vars"
+
+mkdir -p "$(dirname "$SECRET_FILE")"
+touch "$SECRET_FILE"
+chmod 600 "$SECRET_FILE"
+
+for KEY_NAME in DATAFORSEO_API_KEY OPENROUTER_API_KEY; do
+  KEY_VALUE="${!KEY_NAME:-}"
+
+  if [ -n "$KEY_VALUE" ]; then
+    sed -i "/^${KEY_NAME}=/d" "$SECRET_FILE"
+    printf '%s="%s"\n' "$KEY_NAME" "$KEY_VALUE" >> "$SECRET_FILE"
+    echo "$KEY_NAME configured"
+  fi
+done
 # Load DataForSEO secret before OpenSEO starts
 if [ -n "${DATAFORSEO_API_KEY:-}" ]; then
     SECRET_FILE="/app/dist/server/.dev.vars"
