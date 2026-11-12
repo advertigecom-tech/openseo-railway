@@ -124,6 +124,19 @@ fi
 export OPENSEO_MCP_TOKEN
 
 # --- app ------------------------------------------------------------------
+# Load DataForSEO secret before OpenSEO starts
+if [ -n "${DATAFORSEO_API_KEY:-}" ]; then
+    SECRET_FILE="/app/dist/server/.dev.vars"
+    mkdir -p "$(dirname "$SECRET_FILE")"
+    touch "$SECRET_FILE"
+    chmod 600 "$SECRET_FILE"
+
+    sed -i '/^DATAFORSEO_API_KEY=/d' "$SECRET_FILE"
+    printf 'DATAFORSEO_API_KEY="%s"\n' \
+      "$DATAFORSEO_API_KEY" >> "$SECRET_FILE"
+
+    log "DataForSEO secret prepared"
+fi
 log "starting OpenSEO on 127.0.0.1:${APP_PORT} (gate on ${LISTEN_PORT})"
 sh /app/docker-entrypoint.sh &
 APP_PID=$!
