@@ -1,5 +1,7 @@
 # openseo-railway
 
+Fully Fixed DataForSeo & Openrouter (Working) 12/NOV/2026
+
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/openseo-v013-or-semrush-alternative-whos?referralCode=Z1xivh&utm_medium=integration&utm_source=template&utm_campaign=generic)
 
 **Deploy on Railway:** [OpenSEO template](https://railway.com/deploy/openseo-v013-or-semrush-alternative-whos?referralCode=Z1xivh&utm_medium=integration&utm_source=template&utm_campaign=generic)
