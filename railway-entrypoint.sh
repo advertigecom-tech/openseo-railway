@@ -218,16 +218,15 @@ else
     log "WARNING: DATAFORSEO_API_KEY not set"
 fi
 
-# OpenRouter
+# Load OpenRouter secret before OpenSEO starts
 if [ -n "${OPENROUTER_API_KEY:-}" ]; then
+    SECRET_FILE="/app/dist/server/.dev.vars"
 
+    sed -i '/^OPENROUTER_API_KEY=/d' "$SECRET_FILE"
     printf 'OPENROUTER_API_KEY="%s"\n' \
         "$OPENROUTER_API_KEY" >> "$SECRET_FILE"
 
-    log "OpenRouter secret configured"
-
-else
-    log "WARNING: OPENROUTER_API_KEY not set"
+    log "OpenRouter secret prepared"
 fi
 
 chmod 600 "$SECRET_FILE"
